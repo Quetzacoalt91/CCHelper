@@ -24,6 +24,8 @@ local.properties
 .target
 # TeXlipse plugin
 .texlipse
+.classpath
+
 
 # Android
 

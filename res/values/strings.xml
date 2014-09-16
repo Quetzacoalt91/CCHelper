@@ -3,5 +3,7 @@
 
     <string name="app_name">CandyCrushHelper</string>
     <string name="hello_world">Hello world!</string>
+    <string name="add1h">Add 1 hour</string>
+    <string name="add1d">Add 1 day</string>
 
 </resources>
