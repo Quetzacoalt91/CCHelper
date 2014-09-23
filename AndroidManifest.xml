@@ -2,13 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="eu.nabord.candycrushhelper"
     android:versionCode="1"
-    android:versionName="1.0">
-    <!-- android:sharedUserId="android.uid.system" > --> 
+    android:versionName="1.0" >
+
+    <!-- android:sharedUserId="android.uid.system"> -->
+
+    <original-package android:name="com.android.settings" />
 
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
-    
+
     <uses-permission android:name="android.permission.SET_TIME" />
 
     <application
@@ -24,6 +27,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".TimeChangerActivity"
+            android:label="@string/title_activity_time_changer"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eu.nabord.candycrushhelper.MainActivity" />
         </activity>
     </application>
 
