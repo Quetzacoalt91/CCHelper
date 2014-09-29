@@ -5,10 +5,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="add1h">Add 1 hour</string>
     <string name="add1d">Add 1 day</string>
-    <string name="title_activity_time_changer">TimeChanger</string>
+    <string name="title_activity_time_changer">Back to the future</string>
     <string name="action_settings">Settings</string>
-    
     <string name="action_time">Change date &amp; time</string>
     <string name="action_hex">Get bonuses</string>
+    <string name="action_ok_hex">Gimme !</string>
+    <string name="title_activity_bonus">Such bonus</string>
 
 </resources>

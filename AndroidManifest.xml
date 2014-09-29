@@ -36,6 +36,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="eu.nabord.candycrushhelper.MainActivity" />
         </activity>
+        <activity
+            android:name=".BonusActivity"
+            android:label="@string/title_activity_bonus" >
+        </activity>
     </application>
 
 </manifest>
