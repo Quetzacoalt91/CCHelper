@@ -8,7 +8,7 @@ public class HexReader {
 	private String nameFile;
 	private static RandomAccessFile raf;
 
-	public HexReader(String nameFile, String mode) throws FileNotFoundException {
+	public HexReader(String nameFile, String mode) throws Exception {
 		this.nameFile = nameFile;
 		
 		raf = new RandomAccessFile(nameFile, mode);
@@ -27,6 +27,10 @@ public class HexReader {
 	}
 
 	public void setRaf(RandomAccessFile raf) {
-		this.raf = raf;
+		HexReader.raf = raf;
+	}
+	
+	public Integer getValueInFile (int address, int column) {
+		return 0;
 	}
 }

@@ -20,12 +20,16 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	public void onClick(View v) {
 		
+		Intent intent;
+		
 		switch (v.getId()) {
 		case R.id.button1:
-			Intent intent = new Intent(this, TimeChangerActivity.class);
+			intent = new Intent(this, TimeChangerActivity.class);
 			startActivity(intent);
 			break;
 		case R.id.button2:
+			intent = new Intent(this, BonusActivity.class);
+			startActivity(intent);
 			break;
 		}
 	}

@@ -13,6 +13,8 @@
         android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.SET_TIME" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -39,6 +41,9 @@
         <activity
             android:name=".BonusActivity"
             android:label="@string/title_activity_bonus" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eu.nabord.candycrushhelper.MainActivity" />
         </activity>
     </application>
 
