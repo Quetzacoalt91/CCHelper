@@ -1,6 +1,7 @@
 package eu.nabord.classes;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 
 public class HexReader {
@@ -30,7 +31,8 @@ public class HexReader {
 		HexReader.raf = raf;
 	}
 	
-	public Integer getValueInFile (int address, int column) {
-		return 0;
+	public Integer getValueInFile (long address, int column) throws IOException {
+		raf.seek(address/*+column*/);
+		return raf.readInt();
 	}
 }
