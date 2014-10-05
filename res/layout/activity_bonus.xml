@@ -1,46 +1,320 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    tools:context="${relativePackage}.${activityClass}" >
-    
+    android:id="@+id/scrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-	 >
-
-        <EditText
-            android:id="@+id/nbColorBomb"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="4"
-            android:gravity="center"
-            android:inputType="numberSigned" />
-
-	    <CheckBox
-	        android:id="@+id/checkBoxColorBomb"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical"
-        android:gravity="center" >
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical"
+	    tools:context="${relativePackage}.${activityClass}" >
 	    
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/action_ok_hex" />
-    </LinearLayout>
-
-</LinearLayout>
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginRight="20dp"
+		 >
+	
+	        <ImageView
+	            android:id="@+id/imageView1"
+	            android:layout_height="fill_parent"
+	            android:layout_width="wrap_content"
+	            android:contentDescription="Freeze Time"
+	            android:src="@drawable/freeze_time" />
+	        
+	        <EditText
+	            android:id="@+id/nbFreezeTime"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:ems="4"
+	            android:gravity="center"
+	            android:inputType="numberSigned" />
+	
+		    <CheckBox
+		        android:id="@+id/checkBoxFreezeTime"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" />
+	    </LinearLayout>
+	    
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginRight="20dp"
+		 >
+	
+	        <ImageView
+	            android:id="@+id/imageView2"
+	            android:layout_height="fill_parent"
+	            android:layout_width="wrap_content"
+	            android:contentDescription="Color Bomb"
+	            android:src="@drawable/color_bomb" />
+	        
+	        <EditText
+	            android:id="@+id/nbColorBomb"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:ems="4"
+	            android:gravity="center"
+	            android:inputType="numberSigned" />
+	
+		    <CheckBox
+		        android:id="@+id/checkBoxColorBomb"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" />
+	    </LinearLayout>
+	        
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginRight="20dp"
+		 >
+	
+	        <ImageView
+	            android:id="@+id/imageView3"
+	            android:layout_height="fill_parent"
+	            android:layout_width="wrap_content"
+	            android:contentDescription="Jelly Fish"
+	            android:src="@drawable/jelly_fish" />
+	        
+	        <EditText
+	            android:id="@+id/nbJellyFish"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:ems="4"
+	            android:gravity="center"
+	            android:inputType="numberSigned" />
+	
+		    <CheckBox
+		        android:id="@+id/checkBoxJellyFish"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" />
+	    </LinearLayout>
+	        
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginRight="20dp"
+		 >
+	
+	        <ImageView
+	            android:id="@+id/imageView4"
+	            android:layout_height="fill_parent"
+	            android:layout_width="wrap_content"
+	            android:contentDescription="Coconut Wheel"
+	            android:src="@drawable/coconut_wheel" />
+	        
+	        <EditText
+	            android:id="@+id/nbCoconutWheel"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:ems="4"
+	            android:gravity="center"
+	            android:inputType="numberSigned" />
+	
+		    <CheckBox
+		        android:id="@+id/checkBoxCoconutWheel"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" />
+	    </LinearLayout>
+	        
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginRight="20dp"
+		 >
+	
+	        <ImageView
+	            android:id="@+id/imageView5"
+	            android:layout_height="fill_parent"
+	            android:layout_width="wrap_content"
+	            android:contentDescription="Lollipop Hammer"
+	            android:src="@drawable/lollipop_hammer" />
+	        
+	        <EditText
+	            android:id="@+id/nbLollipopHammer"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:ems="4"
+	            android:gravity="center"
+	            android:inputType="numberSigned" />
+	
+		    <CheckBox
+		        android:id="@+id/checkBoxLollipopHammer"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" />
+	    </LinearLayout>
+	        
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginRight="20dp"
+		 >
+	
+	        <ImageView
+	            android:id="@+id/imageView6"
+	            android:layout_height="fill_parent"
+	            android:layout_width="wrap_content"
+	            android:contentDescription="Lucky Candy"
+	            android:src="@drawable/lucky_candy" />
+	        
+	        <EditText
+	            android:id="@+id/nbLuckyCandy"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:ems="4"
+	            android:gravity="center"
+	            android:inputType="numberSigned" />
+	
+		    <CheckBox
+		        android:id="@+id/checkBoxLuckyCandy"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" />
+	    </LinearLayout>
+	        
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginRight="20dp"
+		 >
+	
+	        <ImageView
+	            android:id="@+id/imageView7"
+	            android:layout_height="fill_parent"
+	            android:layout_width="wrap_content"
+	            android:contentDescription="Wrapped and Striped"
+	            android:src="@drawable/wrapped_and_striped" />
+	        
+	        <EditText
+	            android:id="@+id/nbWrappedandStriped"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:ems="4"
+	            android:gravity="center"
+	            android:inputType="numberSigned" />
+	
+		    <CheckBox
+		        android:id="@+id/checkBoxWrappedandStriped"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" />
+	    </LinearLayout>
+	        
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginRight="20dp"
+		 >
+	
+	        <ImageView
+	            android:id="@+id/imageView8"
+	            android:layout_height="fill_parent"
+	            android:layout_width="wrap_content"
+	            android:contentDescription="Free Switch"
+	            android:src="@drawable/free_switch" />
+	        
+	        <EditText
+	            android:id="@+id/nbFreeSwitch"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:ems="4"
+	            android:gravity="center"
+	            android:inputType="numberSigned" />
+	
+		    <CheckBox
+		        android:id="@+id/checkBoxFreeSwitch"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" />
+	    </LinearLayout>
+	        
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginRight="20dp"
+		 >
+	
+	        <ImageView
+	            android:id="@+id/imageView9"
+	            android:layout_height="fill_parent"
+	            android:layout_width="wrap_content"
+	            android:contentDescription="Moonstruck Booster"
+	            android:src="@drawable/moonstruck_booster" />
+	        
+	        <EditText
+	            android:id="@+id/nbMoonstruckBooster"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:ems="4"
+	            android:gravity="center"
+	            android:inputType="numberSigned" />
+	
+		    <CheckBox
+		        android:id="@+id/checkBoxMoonstruckBooster"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" />
+	    </LinearLayout>
+	        
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginRight="20dp"
+		 >
+	
+	        <ImageView
+	            android:id="@+id/imageView10"
+	            android:layout_height="fill_parent"
+	            android:layout_width="wrap_content"
+	            android:contentDescription="Lives"
+	            android:src="@drawable/lives" />
+	        
+	        <EditText
+	            android:id="@+id/nbLives"
+	            android:layout_width="0dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:ems="4"
+	            android:gravity="center"
+	            android:inputType="numberSigned" />
+	
+		    <CheckBox
+		        android:id="@+id/checkBoxLives"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content" />
+	    </LinearLayout>
+	
+	    <LinearLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginRight="20dp"
+	        android:layout_marginTop="20dp"
+	        android:orientation="vertical"
+	        android:gravity="center" >
+		    
+	    <Button
+	        android:id="@+id/button1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/action_ok_hex" />
+	    </LinearLayout>
+	
+	</LinearLayout>
+</ScrollView>
