@@ -3,20 +3,36 @@ package eu.nabord.candycrushhelper;
 import java.io.FileNotFoundException;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnFocusChangeListener;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import eu.nabord.classes.HexReader;
 
 public class BonusActivity extends Activity {
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bonus);
 		
-		
+		((EditText) findViewById(R.id.nbFreezeTime)).setOnFocusChangeListener(focusListener);
+		((EditText) findViewById(R.id.nbColorBomb)).setOnFocusChangeListener(focusListener);
+		((EditText) findViewById(R.id.nbJellyFish)).setOnFocusChangeListener(focusListener);
+		((EditText) findViewById(R.id.nbCoconutWheel)).setOnFocusChangeListener(focusListener);
+		((EditText) findViewById(R.id.nbLollipopHammer)).setOnFocusChangeListener(focusListener);
+		((EditText) findViewById(R.id.nbLuckyCandy)).setOnFocusChangeListener(focusListener);
+		((EditText) findViewById(R.id.nbWrappedandStriped)).setOnFocusChangeListener(focusListener);
+		((EditText) findViewById(R.id.nbFreeSwitch)).setOnFocusChangeListener(focusListener);
+		((EditText) findViewById(R.id.nbMoonstruckBooster)).setOnFocusChangeListener(focusListener);
+		((EditText) findViewById(R.id.nbLives)).setOnFocusChangeListener(focusListener);
 		
 		this.refresh();
 	}
@@ -42,4 +58,16 @@ public class BonusActivity extends Activity {
 			e.printStackTrace();
 		}
 	}
+	
+	private OnFocusChangeListener focusListener = new OnFocusChangeListener() {
+	      @Override
+	      public void onFocusChange(View v, boolean hasFocus) {
+	    	  Resources res = getResources();
+	    	  int id = res.getIdentifier(res.getResourceEntryName(v.getId()).replace("nb_", "addr_"), "id", null /*to do*/);
+	    	  ((CheckBox) findViewById(id)).setChecked(true);
+	    	  
+	    	  Toast.makeText(getApplicationContext(), getResources().getResourceEntryName(v.getId()), 
+					   Toast.LENGTH_SHORT).show();
+	      }
+	};
 }
