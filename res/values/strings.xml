@@ -11,5 +11,19 @@
     <string name="action_hex">Get bonuses</string>
     <string name="action_ok_hex">Gimme !</string>
     <string name="title_activity_bonus">Such bonus</string>
+    
+    <string name="apk_candy_crush">com.king.candycrushsaga</string>
+    
+    <!-- Addresses in save file -->
+    <string name="addr_freeze_time">80</string>
+    <string name="addr_color_bomb">50</string>
+    <string name="addr_jelly_fish">5C</string>
+    <string name="addr_coconut_wheel">68</string>
+    <string name="addr_lollipop_hammer">74</string>
+    <string name="addr_lucky_candy">98</string>
+    <string name="addr_wrapped_and_strapped">A4</string>
+    <string name="addr_free_switch">B0</string>
+    <string name="addr_moonstruck_booster">BC</string>
+    <string name="addr_lives">290</string>
 
 </resources>
