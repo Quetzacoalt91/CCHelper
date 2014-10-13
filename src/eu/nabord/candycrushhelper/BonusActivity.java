@@ -63,10 +63,12 @@ public class BonusActivity extends Activity {
 	      @Override
 	      public void onFocusChange(View v, boolean hasFocus) {
 	    	  Resources res = getResources();
-	    	  int id = res.getIdentifier(res.getResourceEntryName(v.getId()).replace("nb_", "addr_"), "id", null /*to do*/);
-	    	  ((CheckBox) findViewById(id)).setChecked(true);
-	    	  
-	    	  Toast.makeText(getApplicationContext(), getResources().getResourceEntryName(v.getId()), 
+	    	  String checkBoxName = res.getResourceEntryName(v.getId()).replace("nb", "checkBox");
+	    	  int id = res.getIdentifier(checkBoxName, "id", null);
+	    	  if (id > 0)
+	    		  ((CheckBox) findViewById(id)).setChecked(true);
+	    	  else
+	    		  Toast.makeText(getApplicationContext(), checkBoxName, 
 					   Toast.LENGTH_SHORT).show();
 	      }
 	};
