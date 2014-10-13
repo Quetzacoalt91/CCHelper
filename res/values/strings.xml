@@ -10,6 +10,8 @@
     <string name="action_time">Change date &amp; time</string>
     <string name="action_hex">Get bonuses</string>
     <string name="action_ok_hex">Gimme !</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_save">Save</string>
     <string name="title_activity_bonus">Such bonus</string>
     
     <string name="apk_candy_crush">com.king.candycrushsaga</string>

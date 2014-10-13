@@ -47,4 +47,8 @@ public class HexReader {
 		Log.v("Result", "("+ad+") =" + number);
 		return number;
 	}
+	
+	public boolean setValueInFile (String address, int length, Integer value) {
+		return false;
+	}
 }

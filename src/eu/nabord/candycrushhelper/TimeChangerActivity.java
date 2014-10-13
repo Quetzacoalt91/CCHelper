@@ -36,8 +36,10 @@ public class TimeChangerActivity extends Activity implements OnClickListener {
 	public void onResume() {
 		  super.onResume();
 		  
-		  changeDateAndTime(-diff);
-		  diff = 0;
+		  if(diff != 0) {
+			  changeDateAndTime(-diff);
+			  diff = 0;
+		  }
 	}
 
 	public void onClick(View v) {

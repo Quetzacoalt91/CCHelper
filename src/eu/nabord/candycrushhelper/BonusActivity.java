@@ -2,13 +2,13 @@ package eu.nabord.candycrushhelper;
 
 import java.io.FileNotFoundException;
 
-import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
 import android.widget.CheckBox;
@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import eu.nabord.classes.HexReader;
 
-public class BonusActivity extends Activity {
+public class BonusActivity extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,28 @@ public class BonusActivity extends Activity {
 		((EditText) findViewById(R.id.nbLives)).setOnFocusChangeListener(focusListener);
 		
 		this.refresh();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    // Inflate the menu items for use in the action bar
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.bonus_activity_actions, menu);
+	    return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle presses on the action bar items
+	    switch (item.getItemId()) {
+	        case R.id.action_refresh:
+	        	this.refresh();
+	            return true;
+	        case R.id.action_save:
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
 	}
 	
 	private void refresh() {
