@@ -1,12 +1,11 @@
 package eu.nabord.candycrushhelper;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
+import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,7 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import eu.nabord.classes.HexReader;
 
-public class BonusActivity extends ActionBarActivity {
+public class BonusActivity extends Activity {
 	
 	HexReader file = null;
 	String general_fileName = Environment.getExternalStorageDirectory().getPath()+"/SaveCandyCrush/backup/save_1066067012.dat";
@@ -132,9 +131,9 @@ public class BonusActivity extends ActionBarActivity {
 	    	  int id = res.getIdentifier(checkBoxName, "id", null);
 	    	  if (id > 0)
 	    		  ((CheckBox) findViewById(id)).setChecked(true);
-	    	  else
+	    	  /*else
 	    		  Toast.makeText(getApplicationContext(), checkBoxName, 
-					   Toast.LENGTH_SHORT).show();
+					   Toast.LENGTH_SHORT).show();*/
 	      }
 	};
 }

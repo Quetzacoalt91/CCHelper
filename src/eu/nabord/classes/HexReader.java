@@ -51,9 +51,6 @@ public class HexReader {
 	}
 	
 	public void setValueInFile (String address, Integer value) throws IOException, Exception {
-		Integer ad = Integer.parseInt(address, 16);
-		raf.seek(ad);
-		
 		if (value > MAX_ALLOWED_VALUE || value < 0)
 			throw new Exception("Unexpected value for address "+ address +". Must be between 0 and "+ MAX_ALLOWED_VALUE);
 		
@@ -62,6 +59,9 @@ public class HexReader {
 			str_value = "0"+str_value;
 		
 		//Log.v("Conversion result", "Address " + address + " : " + str_value);
+		Integer ad = Integer.parseInt(address, 16);
+		raf.seek(ad);
+		
 		raf.writeByte(Integer.parseInt(str_value.substring(2, 4), 16) & 0x00FF);
 		raf.writeByte(Integer.parseInt(str_value.substring(0, 2), 16) & 0x00FF);
 	}
