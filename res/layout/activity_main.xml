@@ -11,33 +11,51 @@
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/background"
+        android:src="@drawable/background_mini"
         android:scaleType="centerCrop" />
-        
-    <RelativeLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
+
+	<LinearLayout
+	    android:id="@+id/generalLinearLayout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_gravity="center_vertical|center_horizontal"
+	    android:orientation="vertical"
 	    tools:context="${relativePackage}.${activityClass}" >
 
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="66dp"
-            android:text="@string/action_time" />
+		<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_vertical|center_horizontal"
+		    android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="147dp"
-            android:text="@string/action_hex" />
-        
-    </RelativeLayout>
+		    <ImageView
+		        android:id="@+id/imageView2"
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:layout_gravity="center_vertical|center_horizontal"
+		        android:src="@drawable/cch_logo" />
+
+		</LinearLayout>
+
+		<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical" 
+		    android:layout_gravity="center_vertical|center_horizontal" >
+
+		    <Button
+		        android:id="@+id/button1"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="@string/action_time" />
+
+		    <Button
+		        android:id="@+id/button2"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="@string/action_hex" />
+		</LinearLayout>
+	</LinearLayout>
 
 </FrameLayout>
 
