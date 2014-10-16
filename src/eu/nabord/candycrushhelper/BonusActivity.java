@@ -19,7 +19,8 @@ import eu.nabord.classes.HexReader;
 public class BonusActivity extends Activity {
 	
 	HexReader file = null;
-	String general_fileName = Environment.getExternalStorageDirectory().getPath()+"/SaveCandyCrush/backup/save_1066067012.dat";
+	String general_fileName = "/data/data/com.king.candycrushsaga/app_storage/save_1066067012.dat";
+	String backupPath = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class BonusActivity extends Activity {
 		((EditText) findViewById(R.id.nbMoonstruckBooster)).setOnFocusChangeListener(focusListener);
 		((EditText) findViewById(R.id.nbLives)).setOnFocusChangeListener(focusListener);
 		
+		this.backupPath = Environment.getExternalStorageDirectory().getPath() + getString(R.string.dir_backup);
 		this.requestFile(general_fileName);
 		this.refresh();
 	}
@@ -88,6 +90,8 @@ public class BonusActivity extends Activity {
 		try {
 			this.requestFile(general_fileName);
 			
+			file.createBackup(file.PRE_BACKUP);
+			
 			file.setValueInFile(getString(R.string.addr_freeze_time), Integer.parseInt(((EditText) findViewById(R.id.nbFreezeTime)).getText().toString()));
 			file.setValueInFile(getString(R.string.addr_color_bomb), Integer.parseInt(((EditText) findViewById(R.id.nbColorBomb)).getText().toString()));
 			file.setValueInFile(getString(R.string.addr_jelly_fish), Integer.parseInt(((EditText) findViewById(R.id.nbJellyFish)).getText().toString()));
@@ -99,6 +103,7 @@ public class BonusActivity extends Activity {
 			file.setValueInFile(getString(R.string.addr_moonstruck_booster), Integer.parseInt(((EditText) findViewById(R.id.nbMoonstruckBooster)).getText().toString()));
 			file.setValueInFile(getString(R.string.addr_lives), Integer.parseInt(((EditText) findViewById(R.id.nbLives)).getText().toString()));
 			
+			file.createBackup(file.POST_BACKUP);
 			file.close();
 			file = null;
 			Toast.makeText(getApplicationContext(), "File saved !", 
@@ -116,7 +121,7 @@ public class BonusActivity extends Activity {
 		
 		
 		try {
-			file = new HexReader(fileName, "rw");
+			file = new HexReader(fileName, "rw", backupPath);
 		} catch (FileNotFoundException e) {
 			Toast.makeText(getApplicationContext(), (String)e.getMessage(), 
 					   Toast.LENGTH_SHORT).show();
