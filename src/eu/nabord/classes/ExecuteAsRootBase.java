@@ -10,12 +10,15 @@ import android.util.Log;
 /** http://muzikant-android.blogspot.fr/2011/02/how-to-get-root-access-and-execute.html */
 
 public abstract class ExecuteAsRootBase {
+	private static boolean retval = false;
+
 	public static boolean canRunRootCommands() {
-		boolean retval = false;
-		Process suProcess;
 
 		try {
-			suProcess = Runtime.getRuntime().exec("su");
+			if(retval == true)
+				return retval;
+
+			Process suProcess = Runtime.getRuntime().exec("su");
 
 			DataOutputStream os = new DataOutputStream(
 					suProcess.getOutputStream());
@@ -69,11 +72,13 @@ public abstract class ExecuteAsRootBase {
 	}
 
 	public static boolean execute(ArrayList<String> commands) {
-		boolean retval = false;
 
 		try {
 			//ArrayList<String> commands = getCommandsToExecute();
 			if (null != commands && commands.size() > 0) {
+				if(retval == false && !canRunRootCommands())
+					return false;
+
 				Process suProcess = Runtime.getRuntime().exec("su");
 
 				DataOutputStream os = new DataOutputStream(
