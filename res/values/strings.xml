@@ -16,7 +16,7 @@
     
     <string name="apk_candy_crush">com.king.candycrushsaga</string>
     
-    <string name="dir_backup">CandyCrushBackup</string>
+    <string name="dir_backup">/CandyCrushBackup/</string>
     
     <!-- Addresses in save file -->
     <string name="addr_freeze_time">80</string>

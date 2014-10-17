@@ -86,6 +86,7 @@ public abstract class ExecuteAsRootBase {
 
 				// Execute commands that require root access
 				for (String currCommand : commands) {
+					Log.e("Sudo command", "Executing \""+ currCommand + "\"");
 					os.writeBytes(currCommand + "\n");
 					os.flush();
 				}

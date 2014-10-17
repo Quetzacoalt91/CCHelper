@@ -22,7 +22,12 @@ public class HexReader {
 		this.nameFile = pathFile.substring(pathFile.lastIndexOf("/")+1);
 		this.pathBackup = pathBackup;
 		
-		raf = new RandomAccessFile(pathFile, mode);
+		ArrayList<String> commands = new ArrayList<String>();
+		commands.add("mkdir -p "+pathBackup);
+		commands.add("cp "+ pathFile +" "+ pathBackup + nameFile + ".temp");
+		ExecuteAsRootBase.execute(commands);
+		
+		raf = new RandomAccessFile(pathBackup + nameFile + ".temp", mode);
 	}
 
 	public String getNameFile() {
@@ -85,32 +90,33 @@ public class HexReader {
 		//this.createBackup(POST_BACKUP);
 	}
 	
-	public void createBackup(int type) {
+	public void createBackup(int type) throws Exception {
 		ArrayList<String> commands = new ArrayList<String>();
 		
 		switch (type) {
-		case PRE_BACKUP:
-			File backupFile = new File(pathBackup + nameFile + ".pre");
-			File dataFile = new File(pathFile);
-			if (backupFile.exists()) {
-				Date lastModified = new Date(backupFile.lastModified());
-				Date lastModified2 = new Date(dataFile.lastModified());
-				
-				if (lastModified.compareTo(lastModified2) >= 0)
-					return;
-			}
-
-			commands.add("mkdir -p "+pathBackup);
-			commands.add("cp "+ pathFile + " "+ pathBackup + nameFile + ".pre");
-			break;
-
-		case POST_BACKUP:
-			commands.add("mkdir -p "+pathBackup);
-			commands.add("cp "+ pathFile + " "+ pathBackup + nameFile + ".post");
-			commands.add("touch "+ pathBackup + nameFile + ".pre");
-			break;
+			case PRE_BACKUP:
+				File backupFile = new File(pathBackup + nameFile + ".pre");
+				File dataFile = new File(pathFile);
+				if (backupFile.exists() && dataFile.exists()) {
+					Date lastModified = new Date(backupFile.lastModified());
+					Date lastModified2 = new Date(dataFile.lastModified());
+					
+					if (lastModified.compareTo(lastModified2) >= 0)
+						break;
+				}
+				else if (!dataFile.exists())
+					throw new Exception("Cannot find file for date checking !"); 
+	
+				commands.add("cp "+ pathBackup + nameFile + ".temp" + " "+ pathBackup + nameFile + ".pre");
+				break;
+	
+			case POST_BACKUP:
+				commands.add("cp "+ pathBackup + nameFile + ".temp" + " "+ pathBackup + nameFile + ".post");
+				commands.add("touch "+ pathBackup + nameFile + ".pre");
+				break;
 		}
-		ExecuteAsRootBase.execute(commands);
+		if (commands.size() > 0)
+			ExecuteAsRootBase.execute(commands);
 	}
 	
 	public void restoreBackup() {
@@ -122,6 +128,11 @@ public class HexReader {
 	public void close () {
 		try {
 			raf.close();
+			
+			ArrayList<String> commands = new ArrayList<String>();
+			commands.add("cp "+ pathBackup + nameFile + ".temp" + " "+ pathFile);
+			commands.add("rm "+ pathBackup + nameFile + ".temp");
+			ExecuteAsRootBase.execute(commands);
 		} catch (IOException e) {}
 	}
 }
