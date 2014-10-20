@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,7 +20,7 @@ import eu.nabord.classes.HexReader;
 public class BonusActivity extends Activity {
 	
 	HexReader file = null;
-	String general_fileName = "/data/data/com.king.candycrushsaga/app_storage/save_1066067012.dat";
+	String general_fileName = "/data/data/com.king.candycrushsaga/app_storage/save_*.dat";
 	String backupPath = null;
 
 	@Override
@@ -38,7 +39,8 @@ public class BonusActivity extends Activity {
 		((EditText) findViewById(R.id.nbMoonstruckBooster)).setOnFocusChangeListener(focusListener);
 		((EditText) findViewById(R.id.nbLives)).setOnFocusChangeListener(focusListener);
 		
-		this.backupPath = Environment.getExternalStorageDirectory().getPath() + getString(R.string.dir_backup);
+		this.backupPath = getExternalFilesDir(getString(R.string.dir_backup)).getPath();
+		Log.e("Path", this.backupPath);
 		this.requestFile(general_fileName);
 		this.refresh();
 	}

@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import android.content.pm.PackageManager;
+import android.util.Log;
 
 public class HexReader {
 
@@ -18,16 +22,28 @@ public class HexReader {
 	public final int POST_BACKUP = 1;
 
 	public HexReader(String pathFile, String mode, String pathBackup) throws FileNotFoundException {
+		if(pathFile.indexOf("*") != -1) {
+			List<String> l = ExecuteAsRootBase.execute("ls "+ pathFile);
+			if(l.size() == 0)
+				throw new FileNotFoundException("Nope ! Cannot find results of ls !");
+			pathFile = l.get(l.size()-1);
+		}
+		
+		if(pathFile != null)
+			Log.e("HexReader()", pathFile);
+		else Log.e("HexReader()", "nope !");
 		this.pathFile = pathFile;
 		this.nameFile = pathFile.substring(pathFile.lastIndexOf("/")+1);
-		this.pathBackup = pathBackup;
+		this.pathBackup = pathBackup+"/";
 		
 		ArrayList<String> commands = new ArrayList<String>();
 		commands.add("mkdir -p "+pathBackup);
-		commands.add("cp "+ pathFile +" "+ pathBackup + nameFile + ".temp");
+		commands.add("cp -f "+ pathFile +" "+ this.pathBackup + nameFile + ".temp");
+		commands.add("chmod a+r "+ this.pathBackup + nameFile + ".temp");
+		commands.add("chmod a+w "+ this.pathBackup + nameFile + ".temp");
 		ExecuteAsRootBase.execute(commands);
 		
-		raf = new RandomAccessFile(pathBackup + nameFile + ".temp", mode);
+		raf = new RandomAccessFile(this.pathBackup + nameFile + ".temp", mode);
 	}
 
 	public String getNameFile() {

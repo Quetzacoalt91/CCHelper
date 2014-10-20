@@ -1,9 +1,12 @@
 package eu.nabord.classes;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.util.Log;
 
@@ -65,30 +68,69 @@ public abstract class ExecuteAsRootBase {
 		return retval;
 	}
 	
-	public static boolean execute(String command) {
+	public static List<String> execute(String command) {
 		ArrayList<String> commands = new ArrayList<String>();
 		commands.add(command);
-		return execute(commands);
+		return execute(commands).get(0);
 	}
 
-	public static boolean execute(ArrayList<String> commands) {
+	public static List<List<String>> execute(ArrayList<String> commands) {
 
 		try {
+			List<List<String>> results = new ArrayList<List<String>>();
+			
 			//ArrayList<String> commands = getCommandsToExecute();
 			if (null != commands && commands.size() > 0) {
 				if(retval == false && !canRunRootCommands())
-					return false;
+					return null;
 
 				Process suProcess = Runtime.getRuntime().exec("su");
 
 				DataOutputStream os = new DataOutputStream(
 						suProcess.getOutputStream());
+				BufferedReader osRes = new BufferedReader(
+				        new InputStreamReader(suProcess.getInputStream()));
+
 
 				// Execute commands that require root access
 				for (String currCommand : commands) {
 					Log.e("Sudo command", "Executing \""+ currCommand + "\"");
 					os.writeBytes(currCommand + "\n");
 					os.flush();
+					
+					/*byte[] buffer = new byte[4096];
+					int read;
+					//read method will wait forever if there is nothing in the stream
+					//so we need to read it in another way than while((read=stdout.read(buffer))>0)
+					while(true){
+						List<String> resultCmd = new ArrayList<String>();
+						
+					    read = osRes.readLine(buffer);
+					    resultCmd.add(new String(buffer, 0, read));
+					    if(read < 4096){
+					        //we have read everything
+					    	results.add(resultCmd);
+					        break;
+					    }
+					}*/
+					
+					List<String> resultCmd = new ArrayList<String>();
+					while (osRes.ready()) {
+					    final String line = osRes.readLine();
+					    if (line == null) break;
+
+					    resultCmd.add(line);
+						Log.e("Sudo command", "Returns \""+ line + "\"");
+					}
+					results.add(resultCmd);
+					
+					/*List<String> resultCmd = new ArrayList<String>();
+					String result;
+					while ((result = osRes.readLine()) != null){
+						resultCmd.add(result);
+						Log.e("Sudo command", "Returns \""+ result + "\"");
+					}
+					results.add(resultCmd);*/
 				}
 
 				os.writeBytes("exit\n");
@@ -107,6 +149,8 @@ public abstract class ExecuteAsRootBase {
 					Log.e("ROOT", "Error executing root action", ex);
 				}
 			}
+			return results;
+			
 		} catch (IOException ex) {
 			Log.w("ROOT", "Can't get root access", ex);
 		} catch (SecurityException ex) {
@@ -114,8 +158,8 @@ public abstract class ExecuteAsRootBase {
 		} catch (Exception ex) {
 			Log.w("ROOT", "Error executing internal operation", ex);
 		}
-
-		return retval;
+		
+		return null;
 	}
 
 	public abstract ArrayList<String> getCommandsToExecute();
