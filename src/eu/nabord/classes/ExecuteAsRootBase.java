@@ -6,6 +6,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import android.util.Log;
@@ -68,13 +69,21 @@ public abstract class ExecuteAsRootBase {
 		return retval;
 	}
 	
-	public static List<String> execute(String command) {
+	public static void execute(String command) {
+		execute(command, false);
+	}
+	
+	public static void execute(ArrayList<String> commands) {
+		execute(commands, false);
+	}
+	
+	public static List<String> execute(String command, boolean show_result) {
 		ArrayList<String> commands = new ArrayList<String>();
 		commands.add(command);
-		return execute(commands).get(0);
+		return execute(commands, show_result).get(0);
 	}
 
-	public static List<List<String>> execute(ArrayList<String> commands) {
+	public static List<List<String>> execute(ArrayList<String> commands, boolean show_result) {
 
 		try {
 			List<List<String>> results = new ArrayList<List<String>>();
@@ -88,8 +97,8 @@ public abstract class ExecuteAsRootBase {
 
 				DataOutputStream os = new DataOutputStream(
 						suProcess.getOutputStream());
-				BufferedReader osRes = new BufferedReader(
-				        new InputStreamReader(suProcess.getInputStream()));
+				DataInputStream osRes = new DataInputStream(
+				        suProcess.getInputStream());
 
 
 				// Execute commands that require root access
@@ -97,57 +106,31 @@ public abstract class ExecuteAsRootBase {
 					Log.e("Sudo command", "Executing \""+ currCommand + "\"");
 					os.writeBytes(currCommand + "\n");
 					os.flush();
-					
-					/*byte[] buffer = new byte[4096];
-					int read;
-					//read method will wait forever if there is nothing in the stream
-					//so we need to read it in another way than while((read=stdout.read(buffer))>0)
-					while(true){
-						List<String> resultCmd = new ArrayList<String>();
-						
-					    read = osRes.readLine(buffer);
-					    resultCmd.add(new String(buffer, 0, read));
-					    if(read < 4096){
-					        //we have read everything
-					    	results.add(resultCmd);
-					        break;
-					    }
-					}*/
-					
-					List<String> resultCmd = new ArrayList<String>();
-					while (osRes.ready()) {
-					    final String line = osRes.readLine();
-					    if (line == null) break;
 
-					    resultCmd.add(line);
-						Log.e("Sudo command", "Returns \""+ line + "\"");
+					if(show_result)
+					{
+						byte[] buffer = new byte[4096];
+						int read;
+						String fatStr = "";
+						//read method will wait forever if there is nothing in the stream
+						//so we need to read it in another way than while((read=stdout.read(buffer))>0)
+						while(true){
+						    read = osRes.read(buffer);
+						    fatStr = fatStr + (new String(buffer, 0, read));
+						    if(read < 4096){
+						        //we have read everything
+						        break;
+						    }
+						}
+						results.add(Arrays.asList(fatStr.split("\\r?\\n")));
 					}
-					results.add(resultCmd);
-					
-					/*List<String> resultCmd = new ArrayList<String>();
-					String result;
-					while ((result = osRes.readLine()) != null){
-						resultCmd.add(result);
-						Log.e("Sudo command", "Returns \""+ result + "\"");
-					}
-					results.add(resultCmd);*/
 				}
 
 				os.writeBytes("exit\n");
 				os.flush();
 
-				try {
-					int suProcessRetval = suProcess.waitFor();
-					if (255 != suProcessRetval) {
-						// Root access granted
-						retval = true;
-					} else {
-						// Root access denied
-						retval = false;
-					}
-				} catch (Exception ex) {
-					Log.e("ROOT", "Error executing root action", ex);
-				}
+				os.close();
+				osRes.close();
 			}
 			return results;
 			

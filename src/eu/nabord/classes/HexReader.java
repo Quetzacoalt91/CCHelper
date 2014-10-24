@@ -23,7 +23,7 @@ public class HexReader {
 
 	public HexReader(String pathFile, String mode, String pathBackup) throws FileNotFoundException {
 		if(pathFile.indexOf("*") != -1) {
-			List<String> l = ExecuteAsRootBase.execute("ls "+ pathFile);
+			List<String> l = ExecuteAsRootBase.execute("ls "+ pathFile, true);
 			if(l.size() == 0)
 				throw new FileNotFoundException("Nope ! Cannot find results of ls !");
 			pathFile = l.get(l.size()-1);
@@ -38,7 +38,8 @@ public class HexReader {
 		
 		ArrayList<String> commands = new ArrayList<String>();
 		commands.add("mkdir -p "+pathBackup);
-		commands.add("cp -f "+ pathFile +" "+ this.pathBackup + nameFile + ".temp");
+		//commands.add("cp -f "+ pathFile +" "+ this.pathBackup + nameFile + ".temp");
+		commands.add("dd if="+ pathFile +" of="+ this.pathBackup + nameFile + ".temp");
 		commands.add("chmod a+r "+ this.pathBackup + nameFile + ".temp");
 		commands.add("chmod a+w "+ this.pathBackup + nameFile + ".temp");
 		ExecuteAsRootBase.execute(commands);
