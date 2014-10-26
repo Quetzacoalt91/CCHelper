@@ -1,21 +1,16 @@
 package eu.nabord.candycrushhelper;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
-import eu.nabord.classes.ExecuteAsRootBase;
-
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
+import eu.nabord.classes.ExecuteAsRootBase;
 
 public class TimeChangerActivity extends Activity implements OnClickListener {
 	
@@ -33,6 +28,7 @@ public class TimeChangerActivity extends Activity implements OnClickListener {
 		((Button) findViewById(R.id.button2)).setOnClickListener(this);
 	}
 	
+	@Override
 	public void onResume() {
 		  super.onResume();
 		  
@@ -75,13 +71,15 @@ public class TimeChangerActivity extends Activity implements OnClickListener {
 			if (root_access || ExecuteAsRootBase.canRunRootCommands()) {
 				root_access = true;
 				ExecuteAsRootBase.execute("chmod 666 /dev/alarm");
-				SystemClock.setCurrentTimeMillis(c.getTimeInMillis()+time);
+				if (!SystemClock.setCurrentTimeMillis(c.getTimeInMillis()+time))
+					throw new Exception("Set time has failed !");
 				ExecuteAsRootBase.execute("chmod 664 /dev/alarm");
 		    }
 		}
 		catch (Exception e) {
 			Toast.makeText(getApplicationContext(), (String)e.getMessage(), 
 					   Toast.LENGTH_SHORT).show();
+			e.getStackTrace();
 			return false;
 		}
 		return true;

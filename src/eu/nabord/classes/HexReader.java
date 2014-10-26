@@ -28,10 +28,7 @@ public class HexReader {
 				throw new FileNotFoundException("Nope ! Cannot find results of ls !");
 			pathFile = l.get(l.size()-1);
 		}
-		
-		if(pathFile != null)
-			Log.e("HexReader()", pathFile);
-		else Log.e("HexReader()", "nope !");
+
 		this.pathFile = pathFile;
 		this.nameFile = pathFile.substring(pathFile.lastIndexOf("/")+1);
 		this.pathBackup = pathBackup+"/";
@@ -39,7 +36,8 @@ public class HexReader {
 		ArrayList<String> commands = new ArrayList<String>();
 		commands.add("mkdir -p "+pathBackup);
 		//commands.add("cp -f "+ pathFile +" "+ this.pathBackup + nameFile + ".temp");
-		commands.add("dd if="+ pathFile +" of="+ this.pathBackup + nameFile + ".temp");
+		//commands.add("dd if="+ pathFile +" of="+ this.pathBackup + nameFile + ".temp");
+		commands.add("cat "+ pathFile +" > "+ this.pathBackup + nameFile + ".temp");
 		commands.add("chmod a+r "+ this.pathBackup + nameFile + ".temp");
 		commands.add("chmod a+w "+ this.pathBackup + nameFile + ".temp");
 		ExecuteAsRootBase.execute(commands);
@@ -142,14 +140,16 @@ public class HexReader {
 		ExecuteAsRootBase.execute(commands);
 	}
 	
+	public void save() {
+		ArrayList<String> commands = new ArrayList<String>();
+		commands.add("cp "+ pathBackup + nameFile + ".temp" + " "+ pathFile);
+		commands.add("rm "+ pathBackup + nameFile + ".temp");
+		ExecuteAsRootBase.execute(commands);
+	}
+	
 	public void close () {
 		try {
 			raf.close();
-			
-			ArrayList<String> commands = new ArrayList<String>();
-			commands.add("cp "+ pathBackup + nameFile + ".temp" + " "+ pathFile);
-			commands.add("rm "+ pathBackup + nameFile + ".temp");
-			ExecuteAsRootBase.execute(commands);
 		} catch (IOException e) {}
 	}
 }

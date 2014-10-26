@@ -106,6 +106,7 @@ public class BonusActivity extends Activity {
 			file.setValueInFile(getString(R.string.addr_lives), Integer.parseInt(((EditText) findViewById(R.id.nbLives)).getText().toString()));
 			
 			file.createBackup(file.POST_BACKUP);
+			file.save();
 			file.close();
 			file = null;
 			Toast.makeText(getApplicationContext(), "File saved !", 

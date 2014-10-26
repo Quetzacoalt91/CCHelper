@@ -1,10 +1,8 @@
 package eu.nabord.classes;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,18 +13,42 @@ import android.util.Log;
 
 public abstract class ExecuteAsRootBase {
 	private static boolean retval = false;
+	private static Process suProcess = null;
+	private static DataOutputStream os = null;
+	private static DataInputStream osRes = null;
+	
+	public static void close() {
+		if (suProcess != null) {
+			try {
+				os.writeBytes("exit\n");
+				os.flush();
+				os.close();
+				osRes.close();
+				suProcess.waitFor();
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			suProcess = null;
+			os = null;
+			osRes = null;
+		}
+		retval = false;
+	}
 
 	public static boolean canRunRootCommands() {
 
 		try {
-			if(retval == true)
-				return retval;
+			//if(retval == true && suProcess != null)
+				//return retval;
 
-			Process suProcess = Runtime.getRuntime().exec("su");
+			suProcess = Runtime.getRuntime().exec("su");
 
-			DataOutputStream os = new DataOutputStream(
+			os = new DataOutputStream(
 					suProcess.getOutputStream());
-			DataInputStream osRes = new DataInputStream(
+			osRes = new DataInputStream(
 					suProcess.getInputStream());
 
 			if (null != os && null != osRes) {
@@ -50,10 +72,11 @@ public abstract class ExecuteAsRootBase {
 					Log.d("ROOT", "Root access rejected: " + currUid);
 				}
 
-				if (exitSu) {
+				/*if (exitSu) {
 					os.writeBytes("exit\n");
 					os.flush();
-				}
+				}*/
+				//close();
 			}
 		} catch (Exception e) {
 			// Can't get root !
@@ -70,7 +93,9 @@ public abstract class ExecuteAsRootBase {
 	}
 	
 	public static void execute(String command) {
-		execute(command, false);
+		ArrayList<String> commands = new ArrayList<String>();
+		commands.add(command);
+		execute(commands, false);
 	}
 	
 	public static void execute(ArrayList<String> commands) {
@@ -91,19 +116,19 @@ public abstract class ExecuteAsRootBase {
 			//ArrayList<String> commands = getCommandsToExecute();
 			if (null != commands && commands.size() > 0) {
 				if(retval == false && !canRunRootCommands())
-					return null;
+					throw new SecurityException();
 
-				Process suProcess = Runtime.getRuntime().exec("su");
+				/*Process suProcess = Runtime.getRuntime().exec("su");
 
 				DataOutputStream os = new DataOutputStream(
 						suProcess.getOutputStream());
 				DataInputStream osRes = new DataInputStream(
-				        suProcess.getInputStream());
+				        suProcess.getInputStream());*/
 
 
 				// Execute commands that require root access
 				for (String currCommand : commands) {
-					Log.e("Sudo command", "Executing \""+ currCommand + "\"");
+					Log.d("Sudo command", "Executing \""+ currCommand + "\"");
 					os.writeBytes(currCommand + "\n");
 					os.flush();
 
@@ -126,11 +151,12 @@ public abstract class ExecuteAsRootBase {
 					}
 				}
 
-				os.writeBytes("exit\n");
-				os.flush();
+				/*os.writeBytes("exit\n");
+				os.flush();*/
 
-				os.close();
-				osRes.close();
+				/*os.close();
+				osRes.close();*/
+				close();
 			}
 			return results;
 			
