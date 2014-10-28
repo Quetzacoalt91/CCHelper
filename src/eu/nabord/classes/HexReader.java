@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import android.content.pm.PackageManager;
-import android.util.Log;
-
 public class HexReader {
 
 	private String nameFile;
@@ -34,7 +31,7 @@ public class HexReader {
 		this.pathBackup = pathBackup+"/";
 		
 		ArrayList<String> commands = new ArrayList<String>();
-		commands.add("mkdir -p "+pathBackup);
+		//commands.add("mkdir -p "+pathBackup);
 		//commands.add("cp -f "+ pathFile +" "+ this.pathBackup + nameFile + ".temp");
 		//commands.add("dd if="+ pathFile +" of="+ this.pathBackup + nameFile + ".temp");
 		commands.add("cat "+ pathFile +" > "+ this.pathBackup + nameFile + ".temp");

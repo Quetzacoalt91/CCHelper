@@ -44,7 +44,7 @@ public abstract class ExecuteAsRootBase {
 			//if(retval == true && suProcess != null)
 				//return retval;
 
-			suProcess = Runtime.getRuntime().exec("su");
+			suProcess = Runtime.getRuntime().exec(new String[]{"su", "-c", "/system/bin/sh"});
 
 			os = new DataOutputStream(
 					suProcess.getOutputStream());
@@ -130,7 +130,6 @@ public abstract class ExecuteAsRootBase {
 				for (String currCommand : commands) {
 					Log.d("Sudo command", "Executing \""+ currCommand + "\"");
 					os.writeBytes(currCommand + "\n");
-					os.flush();
 
 					if(show_result)
 					{
@@ -150,6 +149,7 @@ public abstract class ExecuteAsRootBase {
 						results.add(Arrays.asList(fatStr.split("\\r?\\n")));
 					}
 				}
+				os.flush();
 
 				/*os.writeBytes("exit\n");
 				os.flush();*/

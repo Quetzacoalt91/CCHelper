@@ -39,8 +39,7 @@ public class BonusActivity extends Activity {
 		((EditText) findViewById(R.id.nbMoonstruckBooster)).setOnFocusChangeListener(focusListener);
 		((EditText) findViewById(R.id.nbLives)).setOnFocusChangeListener(focusListener);
 		
-		this.backupPath = getExternalFilesDir(getString(R.string.dir_backup)).getPath();
-		Log.e("Path", this.backupPath);
+		this.backupPath = getExternalCacheDir().getPath();
 		this.requestFile(general_fileName);
 		this.refresh();
 	}
