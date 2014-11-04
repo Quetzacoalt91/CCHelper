@@ -24,7 +24,10 @@ public abstract class ExecuteAsRootBase {
 				os.flush();
 				os.close();
 				osRes.close();
-				suProcess.waitFor();
+				int exit_code = suProcess.waitFor();
+				if(exit_code != 0)
+					Log.w("su", "su Process exited with code "+ exit_code);
+				
 				
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -130,6 +133,7 @@ public abstract class ExecuteAsRootBase {
 				for (String currCommand : commands) {
 					Log.d("Sudo command", "Executing \""+ currCommand + "\"");
 					os.writeBytes(currCommand + "\n");
+					//os.flush();
 
 					if(show_result)
 					{
@@ -149,7 +153,6 @@ public abstract class ExecuteAsRootBase {
 						results.add(Arrays.asList(fatStr.split("\\r?\\n")));
 					}
 				}
-				os.flush();
 
 				/*os.writeBytes("exit\n");
 				os.flush();*/

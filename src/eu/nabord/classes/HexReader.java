@@ -32,11 +32,11 @@ public class HexReader {
 		
 		ArrayList<String> commands = new ArrayList<String>();
 		//commands.add("mkdir -p "+pathBackup);
-		//commands.add("cp -f "+ pathFile +" "+ this.pathBackup + nameFile + ".temp");
+		commands.add("chmod 666 "+ pathFile);
+		commands.add("cp "+ pathFile +" "+ this.pathBackup + nameFile + ".temp");
 		//commands.add("dd if="+ pathFile +" of="+ this.pathBackup + nameFile + ".temp");
-		commands.add("cat "+ pathFile +" > "+ this.pathBackup + nameFile + ".temp");
-		commands.add("chmod a+r "+ this.pathBackup + nameFile + ".temp");
-		commands.add("chmod a+w "+ this.pathBackup + nameFile + ".temp");
+		//commands.add("cat "+ pathFile +" > "+ this.pathBackup + nameFile + ".temp");
+		
 		ExecuteAsRootBase.execute(commands);
 		
 		raf = new RandomAccessFile(this.pathBackup + nameFile + ".temp", mode);
