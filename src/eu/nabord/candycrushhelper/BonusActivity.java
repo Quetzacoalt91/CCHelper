@@ -28,17 +28,6 @@ public class BonusActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bonus);
 		
-		((EditText) findViewById(R.id.nbFreezeTime)).setOnFocusChangeListener(focusListener);
-		((EditText) findViewById(R.id.nbColorBomb)).setOnFocusChangeListener(focusListener);
-		((EditText) findViewById(R.id.nbJellyFish)).setOnFocusChangeListener(focusListener);
-		((EditText) findViewById(R.id.nbCoconutWheel)).setOnFocusChangeListener(focusListener);
-		((EditText) findViewById(R.id.nbLollipopHammer)).setOnFocusChangeListener(focusListener);
-		((EditText) findViewById(R.id.nbLuckyCandy)).setOnFocusChangeListener(focusListener);
-		((EditText) findViewById(R.id.nbWrappedandStriped)).setOnFocusChangeListener(focusListener);
-		((EditText) findViewById(R.id.nbFreeSwitch)).setOnFocusChangeListener(focusListener);
-		((EditText) findViewById(R.id.nbMoonstruckBooster)).setOnFocusChangeListener(focusListener);
-		((EditText) findViewById(R.id.nbLives)).setOnFocusChangeListener(focusListener);
-		
 		this.backupPath = "/storage/emulated/legacy/"+ getString(R.string.dir_backup); //getExternalCacheDir().getPath();
 		this.requestFile(general_fileName);
 		this.refresh();
@@ -129,18 +118,4 @@ public class BonusActivity extends Activity {
 					   Toast.LENGTH_SHORT).show();
 		}
 	}
-	
-	private OnFocusChangeListener focusListener = new OnFocusChangeListener() {
-	      @Override
-	      public void onFocusChange(View v, boolean hasFocus) {
-	    	  Resources res = getResources();
-	    	  String checkBoxName = res.getResourceEntryName(v.getId()).replace("nb", "checkBox");
-	    	  int id = res.getIdentifier(checkBoxName, "id", null);
-	    	  if (id > 0)
-	    		  ((CheckBox) findViewById(id)).setChecked(true);
-	    	  /*else
-	    		  Toast.makeText(getApplicationContext(), checkBoxName, 
-					   Toast.LENGTH_SHORT).show();*/
-	      }
-	};
 }
