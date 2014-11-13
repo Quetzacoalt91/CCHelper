@@ -44,8 +44,8 @@ public abstract class ExecuteAsRootBase {
 	public static boolean canRunRootCommands() {
 
 		try {
-			//if(retval == true && suProcess != null)
-				//return retval;
+			if(retval == true && suProcess != null)
+				return retval;
 
 			suProcess = Runtime.getRuntime().exec(new String[]{"su", "-c", "/system/bin/sh"});
 
@@ -159,7 +159,7 @@ public abstract class ExecuteAsRootBase {
 
 				/*os.close();
 				osRes.close();*/
-				close();
+				//close();
 			}
 			return results;
 			

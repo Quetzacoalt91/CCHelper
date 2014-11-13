@@ -2,12 +2,14 @@ package eu.nabord.candycrushhelper;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -27,6 +29,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		    // portrait  
 		    linearlayout.setOrientation(LinearLayout.VERTICAL); 
 		}
+		
+		if (appInstalledOrNot(getString(R.string.app_name)) == false)
+		{
+			Toast.makeText(getApplicationContext(), "Candy Crush in not installed", 
+					   Toast.LENGTH_LONG).show();
+			//System.exit(0);
+		}
 	}
 
 	public void onClick(View v) {
@@ -44,4 +53,17 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 		}
 	}
+	
+	private boolean appInstalledOrNot(String uri) {
+        PackageManager pm = getPackageManager();
+        boolean app_installed = false;
+        try {
+            pm.getPackageInfo(uri, PackageManager.GET_ACTIVITIES);
+            app_installed = true;
+        }
+        catch (PackageManager.NameNotFoundException e) {
+            app_installed = false;
+        }
+        return app_installed ;
+    }
 }
