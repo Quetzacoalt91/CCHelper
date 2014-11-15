@@ -60,26 +60,16 @@ public abstract class ExecuteAsRootBase {
 				os.flush();
 
 				String currUid = osRes.readLine();
-				boolean exitSu = false;
 				if (null == currUid) {
 					retval = false;
-					exitSu = false;
 					Log.d("ROOT", "Can't get root access or denied by user");
 				} else if (true == currUid.contains("uid=0")) {
 					retval = true;
-					exitSu = true;
 					Log.d("ROOT", "Root access granted");
 				} else {
 					retval = false;
-					exitSu = true;
 					Log.d("ROOT", "Root access rejected: " + currUid);
 				}
-
-				/*if (exitSu) {
-					os.writeBytes("exit\n");
-					os.flush();
-				}*/
-				//close();
 			}
 		} catch (Exception e) {
 			// Can't get root !
@@ -116,24 +106,16 @@ public abstract class ExecuteAsRootBase {
 		try {
 			List<List<String>> results = new ArrayList<List<String>>();
 			
-			//ArrayList<String> commands = getCommandsToExecute();
 			if (null != commands && commands.size() > 0) {
 				if(retval == false && !canRunRootCommands())
 					throw new SecurityException();
-
-				/*Process suProcess = Runtime.getRuntime().exec("su");
-
-				DataOutputStream os = new DataOutputStream(
-						suProcess.getOutputStream());
-				DataInputStream osRes = new DataInputStream(
-				        suProcess.getInputStream());*/
 
 
 				// Execute commands that require root access
 				for (String currCommand : commands) {
 					Log.d("Sudo command", "Executing \""+ currCommand + "\"");
 					os.writeBytes(currCommand + "\n");
-					//os.flush();
+					os.flush();
 
 					if(show_result)
 					{
@@ -153,13 +135,6 @@ public abstract class ExecuteAsRootBase {
 						results.add(Arrays.asList(fatStr.split("\\r?\\n")));
 					}
 				}
-
-				/*os.writeBytes("exit\n");
-				os.flush();*/
-
-				/*os.close();
-				osRes.close();*/
-				//close();
 			}
 			return results;
 			

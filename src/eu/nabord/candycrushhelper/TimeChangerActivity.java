@@ -13,8 +13,7 @@ import android.widget.Toast;
 import eu.nabord.classes.ExecuteAsRootBase;
 
 public class TimeChangerActivity extends Activity implements OnClickListener {
-	
-	private boolean root_access = false;
+
 	private long diff;
 
 	@Override
@@ -30,12 +29,15 @@ public class TimeChangerActivity extends Activity implements OnClickListener {
 	
 	@Override
 	public void onResume() {
-		  super.onResume();
-		  
-		  if(diff != 0) {
-			  changeDateAndTime(-diff);
+		  if(diff != 0 && changeDateAndTime(-diff) == true)
 			  diff = 0;
-		  }
+		  super.onResume();
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		ExecuteAsRootBase.close();
 	}
 
 	public void onClick(View v) {
@@ -54,27 +56,24 @@ public class TimeChangerActivity extends Activity implements OnClickListener {
 		{
 			// Execute Candy Crush
 			Intent launchIntent = getPackageManager().getLaunchIntentForPackage(getString(R.string.apk_candy_crush));
-			//launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			launchIntent.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+			launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			/*launchIntent.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
 			launchIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-			launchIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+			launchIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);*/
 			startActivity(launchIntent);
 			
 		}
+		else diff = 0;
 	}
 	
 	private boolean changeDateAndTime(long time) {
 		try {
 			Calendar c = Calendar.getInstance(); 
-			/*AlarmManager am = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-			am.setTime(c.getTimeInMillis()+time);*/
-			if (root_access || ExecuteAsRootBase.canRunRootCommands()) {
-				root_access = true;
-				ExecuteAsRootBase.execute("chmod 666 /dev/alarm");
-				if (!SystemClock.setCurrentTimeMillis(c.getTimeInMillis()+time))
-					throw new Exception("Set time has failed !");
-				ExecuteAsRootBase.execute("chmod 664 /dev/alarm");
-		    }
+
+			ExecuteAsRootBase.execute("chmod 666 /dev/alarm");
+			if (!SystemClock.setCurrentTimeMillis(c.getTimeInMillis()+time))
+				throw new Exception("Set time has failed !");
+			ExecuteAsRootBase.execute("chmod 664 /dev/alarm");
 		}
 		catch (Exception e) {
 			Toast.makeText(getApplicationContext(), (String)e.getMessage(), 

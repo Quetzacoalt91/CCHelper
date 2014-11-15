@@ -3,16 +3,10 @@ package eu.nabord.candycrushhelper;
 import java.io.FileNotFoundException;
 
 import android.app.Activity;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnFocusChangeListener;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 import eu.nabord.classes.HexReader;

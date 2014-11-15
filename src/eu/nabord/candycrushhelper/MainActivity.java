@@ -30,11 +30,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		    linearlayout.setOrientation(LinearLayout.VERTICAL); 
 		}
 		
-		if (appInstalledOrNot(getString(R.string.app_name)) == false)
+		if (appInstalledOrNot(getString(R.string.apk_candy_crush)) == false)
 		{
 			Toast.makeText(getApplicationContext(), "Candy Crush in not installed", 
 					   Toast.LENGTH_LONG).show();
-			//System.exit(0);
+			finish();
 		}
 	}
 
