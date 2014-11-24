@@ -33,12 +33,6 @@ public class TimeChangerActivity extends Activity implements OnClickListener {
 			  diff = 0;
 		  super.onResume();
 	}
-	
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		ExecuteAsRootBase.close();
-	}
 
 	public void onClick(View v) {
 		
@@ -49,17 +43,22 @@ public class TimeChangerActivity extends Activity implements OnClickListener {
 		case R.id.button2:
 			diff = 3600000*24;
 			break;
+		case R.id.button3:
+			diff = 3600000*24*7;
+			break;
 		}
 		
 
 		if(changeDateAndTime(diff))
 		{
+			ExecuteAsRootBase.close();
+			
 			// Execute Candy Crush
 			Intent launchIntent = getPackageManager().getLaunchIntentForPackage(getString(R.string.apk_candy_crush));
-			launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			/*launchIntent.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+			//launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			launchIntent.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
 			launchIntent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-			launchIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);*/
+			launchIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 			startActivity(launchIntent);
 			
 		}
