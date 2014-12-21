@@ -140,7 +140,7 @@ public class HexReader {
 	public void save() {
 		ArrayList<String> commands = new ArrayList<String>();
 		commands.add("cp "+ pathBackup + nameFile + ".temp" + " "+ pathFile);
-		commands.add("rm "+ pathBackup + nameFile + ".temp");
+		//commands.add("rm "+ pathBackup + nameFile + ".temp");
 		ExecuteAsRootBase.execute(commands);
 	}
 	
