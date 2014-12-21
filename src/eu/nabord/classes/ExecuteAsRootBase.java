@@ -45,7 +45,19 @@ public abstract class ExecuteAsRootBase {
 
 		try {
 			if(retval == true && suProcess != null)
-				return retval;
+			{
+				try {
+					suProcess.exitValue();
+					close();
+				}
+				catch (IllegalThreadStateException e) {
+					return true;
+				}
+				catch (Exception e) {
+					// Process != null but not existing anymore
+					close();
+				}
+			}
 
 			suProcess = Runtime.getRuntime().exec(new String[]{"su", "-c", "/system/bin/sh"});
 

@@ -70,6 +70,7 @@ public class TimeChangerActivity extends Activity implements OnClickListener {
 			Calendar c = Calendar.getInstance(); 
 
 			ExecuteAsRootBase.execute("chmod 666 /dev/alarm");
+			Thread.sleep(100);
 			if (!SystemClock.setCurrentTimeMillis(c.getTimeInMillis()+time))
 				throw new Exception("Set time has failed !");
 			ExecuteAsRootBase.execute("chmod 664 /dev/alarm");
