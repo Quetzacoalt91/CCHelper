@@ -20,6 +20,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		((Button) findViewById(R.id.button1)).setOnClickListener(this);
 		((Button) findViewById(R.id.button2)).setOnClickListener(this);
+		((Button) findViewById(R.id.button3)).setOnClickListener(this);
 		
 		LinearLayout linearlayout = ((LinearLayout) findViewById(R.id.generalLinearLayout));
 		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -49,6 +50,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.button2:
 			intent = new Intent(this, BonusActivity.class);
+			startActivity(intent);
+			break;
+		case R.id.button3:
+			intent = new Intent(this, SettingsActivity.class);
 			startActivity(intent);
 			break;
 		}

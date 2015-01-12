@@ -54,6 +54,12 @@
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:text="@string/action_hex" />
+
+		    <Button
+		        android:id="@+id/button3"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="@string/action_settings" />
 		</LinearLayout>
 	</LinearLayout>
 
