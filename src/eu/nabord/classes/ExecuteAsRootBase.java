@@ -128,6 +128,7 @@ public abstract class ExecuteAsRootBase {
 					Log.d("Sudo command", "Executing \""+ currCommand + "\"");
 					os.writeBytes(currCommand + "\n");
 					os.flush();
+					Thread.sleep(10);
 
 					if(show_result)
 					{
