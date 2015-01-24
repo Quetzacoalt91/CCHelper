@@ -1,0 +1,13 @@
+<resources>
+
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+    <string name="pref_header_general">General</string>
+    <string name="pref_title_generate">Generate</string>
+    <string name="pref_description_generate">Extract levels of Candy Crush</string>
+    
+    <string name="pref_title_savegame">Save game selection</string>
+    <string name="pref_description_savegame">Choose the proper save game to update</string>
+
+</resources>

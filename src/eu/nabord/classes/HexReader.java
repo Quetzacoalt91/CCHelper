@@ -21,7 +21,7 @@ public class HexReader {
 	public HexReader(String pathFile, String mode, String pathBackup) throws FileNotFoundException {
 		if(pathFile.indexOf("*") != -1) {
 			List<String> l = ExecuteAsRootBase.execute("ls "+ pathFile, true);
-			if(l.size() == 0)
+			if(l == null || l.size() == 0)
 				throw new FileNotFoundException("Nope ! Cannot find results of ls !");
 			pathFile = l.get(l.size()-1);
 		}

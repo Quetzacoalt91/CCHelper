@@ -3,7 +3,9 @@ package eu.nabord.candycrushhelper;
 import java.io.FileNotFoundException;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,16 +16,22 @@ import eu.nabord.classes.HexReader;
 public class BonusActivity extends Activity {
 	
 	HexReader file = null;
-	String general_fileName = "/data/data/com.king.candycrushsaga/app_storage/save_*.dat";
+	public static String general_filePath = "/data/data/com.king.candycrushsaga/app_storage/";
+	public static String general_fileName = "save_*.dat";
 	String backupPath = null;
+	String savegameName = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bonus);
 		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		// then you use
+		savegameName = general_filePath+prefs.getString("savegame_list", general_fileName);
+		
 		this.backupPath = "/storage/emulated/legacy/"+ getString(R.string.dir_backup); //getExternalCacheDir().getPath();
-		this.requestFile(general_fileName);
+		this.requestFile(savegameName);
 		this.refresh();
 	}
 	
@@ -52,7 +60,7 @@ public class BonusActivity extends Activity {
 	
 	private void refresh() {
 		try {
-			this.requestFile(general_fileName);
+			this.requestFile(savegameName);
 			
 			((EditText) findViewById(R.id.nbFreezeTime)).setText(file.getValueInFile(getString(R.string.addr_freeze_time)).toString());
 			((EditText) findViewById(R.id.nbColorBomb)).setText(file.getValueInFile(getString(R.string.addr_color_bomb)).toString());
@@ -72,7 +80,7 @@ public class BonusActivity extends Activity {
 	
 	private void save() {
 		try {
-			this.requestFile(general_fileName);
+			this.requestFile(savegameName);
 			
 			file.createBackup(file.PRE_BACKUP);
 			

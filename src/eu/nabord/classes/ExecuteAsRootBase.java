@@ -2,6 +2,7 @@ package eu.nabord.classes;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -110,7 +111,12 @@ public abstract class ExecuteAsRootBase {
 	public static List<String> execute(String command, boolean show_result) {
 		ArrayList<String> commands = new ArrayList<String>();
 		commands.add(command);
-		return execute(commands, show_result).get(0);
+		
+		List<List<String>> results = execute(commands, show_result);
+		if (results != null && results.size() > 0)
+			return results.get(0);
+		else
+			return null;
 	}
 
 	public static List<List<String>> execute(ArrayList<String> commands, boolean show_result) {
